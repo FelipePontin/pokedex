@@ -20,6 +20,31 @@ body {
     flex-wrap: wrap;
 }
 
+.divisionNameSelected {
+    display: flex;
+    align-items: center;
+}
+
+.star {
+    cursor: pointer;
+    color: #b1b1b18c;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+}
+
+.star.starActive {
+    color: #d83434;
+}
+
+.star:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    color: #d83434d3;
+}
+
+.star:active {
+    transform: scale(.9);
+}
+
 .pokemon {
     display: flex;
     align-items: center;
@@ -216,6 +241,7 @@ body {
 
 .divisionStatus {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin: .25rem 0;
 }

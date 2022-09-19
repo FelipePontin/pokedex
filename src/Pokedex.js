@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Pokedex.css';
 import Logo from '../src/assets/logo.png'
+import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart } from 'react-icons/ai';
 import axios from 'axios';
 
 const Pokedex = () => {
@@ -8,6 +10,7 @@ const Pokedex = () => {
   const [pokemons, setPokemons] = useState([])
   const [selectedPokemon, setSelectedPokemon] = useState()
   const [isSelected, setIsSelected] = useState(false)
+  const [favorites, setFavorites] = useState([])
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
@@ -37,6 +40,17 @@ const Pokedex = () => {
     setIsSelected(true)
   }
 
+  const setFavoritePokemon = (pokemon) => {
+    if(favorites.includes(pokemon)) {
+      const index = favorites.indexOf(pokemon);
+      const remover = favorites.filter((pok, i) => i !== index)
+      setFavorites(remover)
+    }
+    else {
+      setFavorites([...favorites, pokemon])
+    }
+  }
+
   useEffect(() => {
     getAllPokemons()
   }, [])
@@ -46,9 +60,12 @@ const Pokedex = () => {
       {isSelected && (
         <div className='modal' onClick={() => setIsSelected(false)}>
           <div className='pokemonSelected' onClick={(e) => e.stopPropagation()}>
-            <img className='imageSelected' src={selectedPokemon.sprites.other.home.front_default}></img>
+            <img className='imageSelected' src={selectedPokemon.sprites.other.home.front_default} alt=''></img>
             <div className='divisionSelected'>
-              <h1 className='nameSelected'>{selectedPokemon.name}</h1>
+              <div className='divisionNameSelected'>
+                <h1 className='nameSelected'>{selectedPokemon.name}</h1>
+                <AiFillHeart className={!favorites.includes(selectedPokemon.id) ? 'star' : 'star starActive'} onClick={() => setFavoritePokemon(selectedPokemon.id)} />
+              </div>
               {(selectedPokemon.stats).map(pokemon => {
                 return (
                   <div className='divisionStatus'>
@@ -63,7 +80,7 @@ const Pokedex = () => {
       )}
       <section className={!isSelected ? 'pokeapi' : 'pokeapi pokeapiSelected'}>
         <div className='logo' >
-          <img src={Logo}></img>
+          <img src={Logo} alt=''></img>
         </div>
         <div class='inputDivision'>
           <input className='input' type='text' placeholder='Procure por um Pokemon'></input>
@@ -73,7 +90,8 @@ const Pokedex = () => {
             const typeInfo = (pokemon.types).map(types => types.type.name)
             return (
               <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                <img className='image' src={pokemon.sprites.other.home.front_default}></img>
+                <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                
                 <div>
                   <div className='division'>
                     <h1 className='name'>{pokemon.name}</h1>
