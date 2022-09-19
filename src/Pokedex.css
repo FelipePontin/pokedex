@@ -81,6 +81,36 @@ body {
     margin: 0 .5rem 0 0;
 }
 
+.logo {
+    display: flex;
+    justify-content: center;
+    margin: 2.5rem 0;
+}
+
+.inputDivision {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 2rem 0;
+}
+
+.input {
+    background: #242629;
+    border: none;
+    font-size: .85rem;
+    width: 25rem;
+    padding: .55rem 0 .55rem .95rem;
+    border-radius: .25rem;
+    font-weight: 500;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+}
+
+.input:focus {
+    outline: none;
+    box-shadow: #3761a896 0px 0px 0px 3px;
+}
+
 .fire {
     background: #FD7D24;
 }
@@ -161,6 +191,7 @@ body {
     border-radius: 20px;
     z-index: 9999999999;
     background: #242629;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 }
 
 .imageSelected {
@@ -204,7 +235,7 @@ body {
     background: #16161A;
 }
 
-.pokedexSelected {
+.pokeapiSelected {
     filter: blur(4px);
 }
 
