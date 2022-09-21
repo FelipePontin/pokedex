@@ -10,7 +10,9 @@ const Pokedex = () => {
   const [pokemons, setPokemons] = useState([])
   const [selectedPokemon, setSelectedPokemon] = useState()
   const [isSelected, setIsSelected] = useState(false)
-  const [favorites, setFavorites] = useState([])
+  const [favoritesId, setFavoritesId] = useState([])
+  const [favorites, setFavorites] = useState()
+  const [showFavorites, setShowFavorites] = useState(false)
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
@@ -41,14 +43,27 @@ const Pokedex = () => {
   }
 
   const setFavoritePokemon = (pokemon) => {
-    if(favorites.includes(pokemon)) {
-      const index = favorites.indexOf(pokemon);
-      const remover = favorites.filter((pok, i) => i !== index)
-      setFavorites(remover)
+    if (favoritesId.includes(pokemon)) {
+      const index = favoritesId.indexOf(pokemon);
+      const remover = favoritesId.filter((pok, i) => i !== index)
+      setFavoritesId(remover)
     }
     else {
-      setFavorites([...favorites, pokemon])
+      setFavoritesId([...favoritesId, pokemon])
     }
+  }
+
+  const showFavoritePokemons = () => {
+    if (!showFavorites) {
+      const favoritePokemons = pokemons.filter((pok, i) => (favoritesId).includes(pok.id))
+        // setFavorites('Você não tem pokemons favoritos!')
+      setFavorites(favoritePokemons)
+      setShowFavorites(true)
+    }
+    else {
+      setShowFavorites(false)
+    }
+
   }
 
   useEffect(() => {
@@ -64,7 +79,7 @@ const Pokedex = () => {
             <div className='divisionSelected'>
               <div className='divisionNameSelected'>
                 <h1 className='nameSelected'>{selectedPokemon.name}</h1>
-                <AiFillHeart className={!favorites.includes(selectedPokemon.id) ? 'star' : 'star starActive'} onClick={() => setFavoritePokemon(selectedPokemon.id)} />
+                <AiFillHeart className={!favoritesId.includes(selectedPokemon.id) ? 'star' : 'star starActive'} onClick={() => setFavoritePokemon(selectedPokemon.id)} />
               </div>
               {(selectedPokemon.stats).map(pokemon => {
                 return (
@@ -79,35 +94,59 @@ const Pokedex = () => {
         </div>
       )}
       <section className={!isSelected ? 'pokeapi' : 'pokeapi pokeapiSelected'}>
+
         <div className='logo' >
           <img src={Logo} alt=''></img>
         </div>
         <div class='inputDivision'>
           <input className='input' type='text' placeholder='Procure por um Pokemon'></input>
+          <button className='favoritos' onClick={() => showFavoritePokemons()}><AiFillHeart /></button>
         </div>
         <div className='pokedex'>
-          {pokemons.map(pokemon => {
-            const typeInfo = (pokemon.types).map(types => types.type.name)
-            return (
-              <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
-                
-                <div>
-                  <div className='division'>
-                    <h1 className='name'>{pokemon.name}</h1>
-                    <span className='order'>#{pokemon.order}</span>
+          {showFavorites ?
+            favorites.map(pokemon => {
+              const typeInfo = (pokemon.types).map(types => types.type.name)
+              return (
+                <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                  <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                  <div>
+                    <div className='division'>
+                      <h1 className='name'>{pokemon.name}</h1>
+                      <span className='order'>#{pokemon.order}</span>
+                    </div>
+                    <ul className='types'>
+                      {typeInfo.map(type => {
+                        return (
+                          <li className={`type ${type}`}>{type}</li>
+                        )
+                      })}
+                    </ul>
                   </div>
-                  <ul className='types'>
-                    {typeInfo.map(type => {
-                      return (
-                        <li className={`type ${type}`}>{type}</li>
-                      )
-                    })}
-                  </ul>
                 </div>
-              </div>
-            )
-          })}
+              )
+            }) : pokemons.map(pokemon => {
+              const typeInfo = (pokemon.types).map(types => types.type.name)
+              return (
+                <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                  <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+
+                  <div>
+                    <div className='division'>
+                      <h1 className='name'>{pokemon.name}</h1>
+                      <span className='order'>#{pokemon.order}</span>
+                    </div>
+                    <ul className='types'>
+                      {typeInfo.map(type => {
+                        return (
+                          <li className={`type ${type}`}>{type}</li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              )
+            })
+          }
         </div>
       </section>
     </>
