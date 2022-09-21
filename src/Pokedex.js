@@ -98,7 +98,7 @@ const Pokedex = () => {
   }
 
   const openModalFilter = () => {
-    if(modalFilter == true) {
+    if (modalFilter == true) {
       setModalFilter(false)
     }
     else {
@@ -138,7 +138,6 @@ const Pokedex = () => {
           <img className='logoImage' src={Logo} alt=''></img>
         </div>
         <div className='inputDivision'>
-          {/* <input className='input' type='text' placeholder='Procure por um Pokemon'></input> */}
           <button onClick={() => openModalFilter()}>Filtrar</button>
         </div>
         <div className='pokedex'>
@@ -193,16 +192,22 @@ const Pokedex = () => {
           }
         </div>
       </section>
-      <div className={modalFilter ? 'filter filterActive' : 'filter'}>
-        <button className='favoritos' onClick={() => showFavoritePokemons()}>Favoritos</button>
-        <ul className='typesFilter'>
-          {categories.map(type => {
-            return (
-              <li className={categoriesActive.includes(type) ? `typeFilter ${type}` : 'typeFilter'} onClick={() => addCategorie(type)}>{type}</li>
-            )
-          })}
-        </ul>
-      </div>
+      {modalFilter && (
+        <div className='modalFilter' onClick={() => setModalFilter(false)}>
+          <div className='filter' onClick={(e) => e.stopPropagation()}>
+            <h1 className='filterTitle'>Filtrar</h1>
+            <input className='input' type='text' placeholder='Procure por um Pokemon'></input>
+            <button className={showFavorites ? 'favoritos favoritosActive' : 'favoritos'} onClick={() => showFavoritePokemons()}><AiFillHeart /></button>
+            <ul className='typesFilter'>
+              {categories.map(type => {
+                return (
+                  <li className={categoriesActive.includes(type) ? `typeFilter ${type}` : 'typeFilter'} onClick={() => addCategorie(type)}>{type}</li>
+                )
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   )
 }
