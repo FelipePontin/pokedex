@@ -98,7 +98,7 @@ const Pokedex = () => {
   }
 
   const openModalFilter = () => {
-    if (modalFilter == true) {
+    if (modalFilter === true) {
       setModalFilter(false)
     }
     else {
@@ -138,7 +138,7 @@ const Pokedex = () => {
           <img className='logoImage' src={Logo} alt=''></img>
         </div>
         <div className='inputDivision'>
-          <button onClick={() => openModalFilter()}>Filtrar</button>
+          <button className='btnFilter' onClick={() => openModalFilter()}>Filtrar</button>
         </div>
         <div className='pokedex'>
           {showFavorites ?
