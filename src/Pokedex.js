@@ -34,6 +34,7 @@ const Pokedex = () => {
   ]);
   const [categoriesActive, setCategoriesActive] = useState([])
   const [modalFilter, setModalFilter] = useState(false)
+  const [filteredPokemons, setFilteredPokemons] = useState([])
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
@@ -103,7 +104,13 @@ const Pokedex = () => {
     }
     else {
       setModalFilter(true)
+      setFilteredPokemons([])
     }
+  }
+
+  const filterPokemons = (pokemonName) => {
+    const pokemonsFiltrados = pokemons.filter(pokemon => (pokemon.name).includes(pokemonName))
+    setFilteredPokemons(pokemonsFiltrados)
   }
 
   useEffect(() => {
@@ -133,7 +140,7 @@ const Pokedex = () => {
           </div>
         </div>
       )}
-      <section className={!isSelected ? 'pokeapi' : 'pokeapi pokeapiSelected'}>
+      <section className={isSelected || modalFilter ? 'pokeapi pokeapiSelected' : 'pokeapi'}>
         <div className='logo' >
           <img className='logoImage' src={Logo} alt=''></img>
         </div>
@@ -167,28 +174,52 @@ const Pokedex = () => {
                 )
               })
             )
-            : pokemons.map(pokemon => {
-              const typeInfo = (pokemon.types).map(types => types.type.name)
-              return (
-                <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                  <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
-
-                  <div>
-                    <div className='division'>
-                      <h1 className='name'>{pokemon.name}</h1>
-                      <span className='order'>#{pokemon.order}</span>
+            : filteredPokemons.length === 0 ?
+              (pokemons.map(pokemon => {
+                const typeInfo = (pokemon.types).map(types => types.type.name)
+                return (
+                  <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                    <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                    <div>
+                      <div className='division'>
+                        <h1 className='name'>{pokemon.name}</h1>
+                        <span className='order'>#{pokemon.order}</span>
+                      </div>
+                      <ul className='types'>
+                        {typeInfo.map(type => {
+                          return (
+                            <li className={`type ${type}`}>{type}</li>
+                          )
+                        })}
+                      </ul>
                     </div>
-                    <ul className='types'>
-                      {typeInfo.map(type => {
-                        return (
-                          <li className={`type ${type}`}>{type}</li>
-                        )
-                      })}
-                    </ul>
                   </div>
-                </div>
-              )
-            })
+                )
+              }))
+              :
+              (filteredPokemons.map(pokemon => {
+                const typeInfo = (pokemon.types).map(types => types.type.name)
+                return (
+                  <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                    <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+
+                    <div>
+                      <div className='division'>
+                        <h1 className='name'>{pokemon.name}</h1>
+                        <span className='order'>#{pokemon.order}</span>
+                      </div>
+                      <ul className='types'>
+                        {typeInfo.map(type => {
+                          return (
+                            <li className={`type ${type}`}>{type}</li>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                )
+              }))
+
           }
         </div>
       </section>
@@ -196,7 +227,7 @@ const Pokedex = () => {
         <div className='modalFilter' onClick={() => setModalFilter(false)}>
           <div className='filter' onClick={(e) => e.stopPropagation()}>
             <h1 className='filterTitle'>Filtrar</h1>
-            <input className='input' type='text' placeholder='Procure por um Pokemon'></input>
+            <input className='input' type='text' placeholder='Procure por um Pokemon' onChange={(e) => filterPokemons((e.target.value).toLowerCase())}></input>
             <button className={showFavorites ? 'favoritos favoritosActive' : 'favoritos'} onClick={() => showFavoritePokemons()}><AiFillHeart /></button>
             <ul className='typesFilter'>
               {categories.map(type => {
