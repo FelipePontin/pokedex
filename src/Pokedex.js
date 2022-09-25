@@ -35,6 +35,7 @@ const Pokedex = () => {
   const [categoriesActive, setCategoriesActive] = useState([])
   const [modalFilter, setModalFilter] = useState(false)
   const [filteredPokemons, setFilteredPokemons] = useState([])
+  const [randomPokemon, setRandomPokemon] = useState()
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
@@ -113,6 +114,18 @@ const Pokedex = () => {
     setFilteredPokemons(pokemonsFiltrados)
   }
 
+  const getRandomPokemon = () => {
+    let pokemonId = Math.floor(Math.random() * 151)
+
+    console.log(pokemons[pokemonId])
+    setRandomPokemon(pokemons[pokemonId])
+    // if (pokemonId === 0) {
+    //   pokemonId++
+  
+    //   return
+    // }
+  }
+
   useEffect(() => {
     getAllPokemons()
   }, [])
@@ -150,7 +163,9 @@ const Pokedex = () => {
         <div className='pokedex'>
           {showFavorites ?
             (favoritesId.length === 0 ?
-              <div className='noFavorites'><FaExclamationTriangle />Você não tem pokemons favoritos.</div>
+              <>
+                <div className='noFavorites'><FaExclamationTriangle />Você não tem pokemons favoritos.</div>
+              </>
               :
               favorites.map(pokemon => {
                 const typeInfo = (pokemon.types).map(types => types.type.name)
