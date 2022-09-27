@@ -79,7 +79,38 @@ body {
     font-weight: 400;
     background: #242629;
     padding: .35rem 1rem;
+    margin: 0 0 2rem 0;
     border-radius: .25rem;
+}
+
+.favoritesSugestion {
+    color: #fff;
+}
+
+.favoritesDivision {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 1rem 0 0;
+}
+
+.favoritesSection {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+}
+
+.randomPokemonName {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 400;
+    margin: 1rem 0 1rem 0;
+    background: #242629;
+    padding: .35rem 1rem;
+    border-radius: .25rem;
+    text-transform: capitalize;
 }
 
 .pokemon {
@@ -169,7 +200,7 @@ body {
     padding: .15rem .35rem;
     border-radius: .25rem;
     text-transform: capitalize;
-    margin: 0 .5rem 0 0;
+    margin: .25rem;
     cursor: pointer;
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 }
@@ -391,4 +422,14 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.4);
+}
+
+::-webkit-scrollbar {
+    width: 7.5px;
+    background: #28282986;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3e3f42;
+    border-radius: 1rem;
 }

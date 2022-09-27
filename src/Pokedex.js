@@ -4,6 +4,7 @@ import Logo from '../src/assets/logo.png'
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { AiFillHeart } from 'react-icons/ai';
 import axios from 'axios';
+import { type } from '@testing-library/user-event/dist/type';
 
 const Pokedex = () => {
 
@@ -33,6 +34,7 @@ const Pokedex = () => {
     'dragon'
   ]);
   const [categoriesActive, setCategoriesActive] = useState([])
+  const [categoriesPokemons, setCategoriesPokemons] = useState([])
   const [modalFilter, setModalFilter] = useState(false)
   const [filteredPokemons, setFilteredPokemons] = useState([])
   const [randomPokemon, setRandomPokemon] = useState()
@@ -91,11 +93,9 @@ const Pokedex = () => {
     if (categoriesActive.includes(type)) {
       const removeCategorie = categoriesActive.filter(categorie => categorie !== type)
       setCategoriesActive(removeCategorie)
-      console.log(categoriesActive)
     }
     else {
       setCategoriesActive([...categoriesActive, type])
-      console.log(categoriesActive)
     }
   }
 
@@ -116,14 +116,28 @@ const Pokedex = () => {
 
   const getRandomPokemon = () => {
     let pokemonId = Math.floor(Math.random() * 151)
+    if (pokemonId === 0) {
+      pokemonId++
+      setRandomPokemon(pokemons[pokemonId])
+    }
+    else {
+      setRandomPokemon(pokemons[pokemonId])
+    }
+  }
 
-    console.log(pokemons[pokemonId])
-    setRandomPokemon(pokemons[pokemonId])
-    // if (pokemonId === 0) {
-    //   pokemonId++
-  
-    //   return
-    // }
+  const getCategoriesPokemons = () => {
+    pokemons.map(pokemon => {
+      const typeInfo = (pokemon.types).map(types => types.type.name)
+      categoriesActive.map(categorie => {
+        if (typeInfo.includes(categorie)) {
+          setCategoriesPokemons([...categoriesPokemons, pokemon])
+        }
+        else {
+          console.log('não')
+        }
+      })
+    })
+    console.log(categoriesPokemons)
   }
 
   useEffect(() => {
@@ -154,8 +168,14 @@ const Pokedex = () => {
         </div>
       )}
       <section className={isSelected || modalFilter ? 'pokeapi pokeapiSelected' : 'pokeapi'}>
+      {categoriesPokemons.map(pok => {
+          return(
+            <div>{pok.name}</div>
+          )
+        })}
         <div className='logo' >
           <img className='logoImage' src={Logo} alt=''></img>
+          <button onClick={() => getCategoriesPokemons()}>CATEGORIA</button>
         </div>
         <div className='inputDivision'>
           <button className='btnFilter' onClick={() => openModalFilter()}>Filtrar</button>
@@ -163,9 +183,18 @@ const Pokedex = () => {
         <div className='pokedex'>
           {showFavorites ?
             (favoritesId.length === 0 ?
-              <>
-                <div className='noFavorites'><FaExclamationTriangle />Você não tem pokemons favoritos.</div>
-              </>
+              <section className='favoritesSection'>
+                <div className='favoritesDivision'>
+                  <p className='favoritesSugestion'>Que tal esse?</p>
+                  <img className='image' src={randomPokemon.sprites.other.home.front_default} alt=''></img>
+                  <p className='randomPokemonName'>{randomPokemon.name}</p>
+                  <AiFillHeart className={!favoritesId.includes(randomPokemon.id) ? 'star' : 'star starActive'} onClick={() => {
+                    setFavoritePokemon(randomPokemon.id)
+                    showFavoritePokemons()
+                  }} />
+                </div>
+                <div className='noFavorites'>Você não tem pokemons favoritos.</div>
+              </section>
               :
               favorites.map(pokemon => {
                 const typeInfo = (pokemon.types).map(types => types.type.name)
@@ -243,7 +272,10 @@ const Pokedex = () => {
           <div className='filter' onClick={(e) => e.stopPropagation()}>
             <h1 className='filterTitle'>Filtrar</h1>
             <input className='input' type='text' placeholder='Procure por um Pokemon' onChange={(e) => filterPokemons((e.target.value).toLowerCase())}></input>
-            <button className={showFavorites ? 'favoritos favoritosActive' : 'favoritos'} onClick={() => showFavoritePokemons()}><AiFillHeart /></button>
+            <button className={showFavorites ? 'favoritos favoritosActive' : 'favoritos'} onClick={() => {
+              getRandomPokemon()
+              showFavoritePokemons()
+            }}><AiFillHeart /></button>
             <ul className='typesFilter'>
               {categories.map(type => {
                 return (
