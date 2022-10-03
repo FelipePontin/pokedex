@@ -130,14 +130,12 @@ const Pokedex = () => {
       const typeInfo = (pokemon.types).map(types => types.type.name)
       categoriesActive.map(categorie => {
         if (typeInfo.includes(categorie)) {
+          console.log(pokemon)
           setCategoriesPokemons([...categoriesPokemons, pokemon])
-        }
-        else {
-          console.log('não')
+          return
         }
       })
     })
-    console.log(categoriesPokemons)
   }
 
   useEffect(() => {
@@ -168,14 +166,14 @@ const Pokedex = () => {
         </div>
       )}
       <section className={isSelected || modalFilter ? 'pokeapi pokeapiSelected' : 'pokeapi'}>
-      {categoriesPokemons.map(pok => {
+      {categoriesPokemons.map(posk => {
+        console.log(categoriesPokemons)
           return(
-            <div>{pok.name}</div>
+            <div>{posk.name}</div>
           )
         })}
         <div className='logo' >
           <img className='logoImage' src={Logo} alt=''></img>
-          <button onClick={() => getCategoriesPokemons()}>CATEGORIA</button>
         </div>
         <div className='inputDivision'>
           <button className='btnFilter' onClick={() => openModalFilter()}>Filtrar</button>
@@ -279,7 +277,10 @@ const Pokedex = () => {
             <ul className='typesFilter'>
               {categories.map(type => {
                 return (
-                  <li className={categoriesActive.includes(type) ? `typeFilter ${type}` : 'typeFilter'} onClick={() => addCategorie(type)}>{type}</li>
+                  <li className={categoriesActive.includes(type) ? `typeFilter ${type}` : 'typeFilter'} onClick={() => {
+                    addCategorie(type)
+                    getCategoriesPokemons()
+                  }}>{type}</li>
                 )
               })}
             </ul>
