@@ -433,3 +433,34 @@ body {
     background: #3e3f42;
     border-radius: 1rem;
 }
+
+@media screen and (max-width: 750px) {
+    .imageSelected {
+        width: 10rem;
+    }
+    
+    .pokemonSelected {
+        width: max-content;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 4rem;
+    }
+
+    .divisionNameSelected {
+        margin: 1rem 0 0 0;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .filter {
+        padding: 2rem;
+        height: 25rem;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .input {
+        width: 100%;
+        margin: 1rem;
+    }
+}

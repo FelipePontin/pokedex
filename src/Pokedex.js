@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Pokedex.css';
 import Logo from '../src/assets/logo.png'
-import { FaExclamationTriangle } from 'react-icons/fa';
 import { AiFillHeart } from 'react-icons/ai';
 import axios from 'axios';
-import { type } from '@testing-library/user-event/dist/type';
 
 const Pokedex = () => {
 
@@ -130,7 +128,6 @@ const Pokedex = () => {
       const typeInfo = (pokemon.types).map(types => types.type.name)
       categoriesActive.map(categorie => {
         if (typeInfo.includes(categorie)) {
-          console.log(pokemon)
           setCategoriesPokemons([...categoriesPokemons, pokemon])
           return
         }
@@ -166,12 +163,6 @@ const Pokedex = () => {
         </div>
       )}
       <section className={isSelected || modalFilter ? 'pokeapi pokeapiSelected' : 'pokeapi'}>
-      {categoriesPokemons.map(posk => {
-        console.log(categoriesPokemons)
-          return(
-            <div>{posk.name}</div>
-          )
-        })}
         <div className='logo' >
           <img className='logoImage' src={Logo} alt=''></img>
         </div>
