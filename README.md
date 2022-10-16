@@ -11,3 +11,7 @@ Projeto desenvolvido em ReactJS consumindo a API do PokeAPI.
 > Você pode selecionar algum Pokemon e ver as suas estatísticas.
 
 <img src='https://user-images.githubusercontent.com/78386030/196056729-34ad1df3-640d-4cf9-b064-c24e648f0935.png' width='500px'>
+
+> Adicione Pokemons a sua lista de favoritos e filtre por outros.
+
+<img src='https://user-images.githubusercontent.com/78386030/196056773-b04cc288-b861-4d8e-8301-403080810742.png' width='500px'>
