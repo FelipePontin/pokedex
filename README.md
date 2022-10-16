@@ -20,7 +20,7 @@ Projeto desenvolvido em ReactJS consumindo a API do PokeAPI.
 <img src='https://user-images.githubusercontent.com/78386030/196056773-b04cc288-b861-4d8e-8301-403080810742.png' width='500px'>
 
 
-> ✔Caso você não tenha decidido um Pokemon favorito, a gente sugere um!
+> Caso você não tenha decidido um Pokemon favorito, a gente sugere um!
 
 <img src='https://user-images.githubusercontent.com/78386030/196056852-a0a4059c-0fcc-4d97-b0ee-3aa7b0c1bc03.png' width='500px'>
 
