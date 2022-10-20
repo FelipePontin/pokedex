@@ -133,7 +133,8 @@ const Pokedex = () => {
         }
       })
     })
-    setCategoriesPokemons(arrayPokemon)
+    const pokemon = arrayPokemon.filter((poke, i) => arrayPokemon.indexOf(poke) === i);
+    setCategoriesPokemons(pokemon)
   }
 
   useEffect(() => {
