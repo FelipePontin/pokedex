@@ -12,35 +12,17 @@ const Pokedex = () => {
   const [favoritesId, setFavoritesId] = useState([])
   const [favorites, setFavorites] = useState([])
   const [showFavorites, setShowFavorites] = useState(false)
-  const [categories, setCategories] = useState([
-    'grass',
-    'poison',
-    'fire',
-    'flying',
-    'water',
-    'bug',
-    'normal',
-    'electric',
-    'ground',
-    'fairy',
-    'fighting',
-    'psychic',
-    'rock',
-    'steel',
-    'ghost',
-    'ice',
-    'dragon'
-  ])
   const [categoriesActive, setCategoriesActive] = useState([])
   const [categoriesPokemons, setCategoriesPokemons] = useState([])
   const [modalFilter, setModalFilter] = useState(false)
   const [filteredPokemons, setFilteredPokemons] = useState([])
   const [randomPokemon, setRandomPokemon] = useState()
+  const [categories, setCategories] = useState(['grass', 'poison', 'fire', 'flying', 'water', 'bug', 'normal', 'electric', 'ground', 'fairy', 'fighting', 'psychic', 'rock', 'steel', 'ghost', 'ice', 'dragon'])
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
     try {
-      const response =  await axios.get(url)
+      const response = await axios.get(url)
       const results = response.data.results
 
       results.forEach(async pokemon => {
@@ -51,7 +33,7 @@ const Pokedex = () => {
       })
 
     }
-    catch(error) {
+    catch (error) {
       console.log(error)
     }
   }
@@ -287,7 +269,7 @@ const Pokedex = () => {
               setCategoriesActive([])
               setCategoriesPokemons([])
             }
-              }></input>
+            }></input>
             <button className={showFavorites ? 'favoritos favoritosActive' : 'favoritos'} onClick={() => {
               getRandomPokemon()
               showFavoritePokemons()
