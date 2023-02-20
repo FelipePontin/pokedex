@@ -30,7 +30,7 @@ const Pokedex = () => {
     'ghost',
     'ice',
     'dragon'
-  ]);
+  ])
   const [categoriesActive, setCategoriesActive] = useState([])
   const [categoriesPokemons, setCategoriesPokemons] = useState([])
   const [modalFilter, setModalFilter] = useState(false)
@@ -39,25 +39,21 @@ const Pokedex = () => {
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
-    axios.get(url)
-      .then(response => {
-        const { results } = response.data
+    try {
+      const response =  await axios.get(url)
+      const results = response.data.results
 
-        results.map(async (pokemon) => {
-          const result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
+      results.forEach(async pokemon => {
+        const result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
+        const pokemonData = result.data
 
-          setPokemons(status => {
-            status = [...status, result.data]
-            status.sort((a, b) => a.id > b.id ? 1 : -1)
-
-            return status
-          })
-
-        })
+        setPokemons(pokemon => [...pokemon, pokemonData])
       })
-      .catch(() => {
-        console.log('Erro!')
-      })
+
+    }
+    catch(error) {
+      console.log(error)
+    }
   }
 
   const getSelectedPokemon = pokemon => {
