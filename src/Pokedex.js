@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Pokedex.css';
 import Logo from '../src/assets/logo.png'
 import { AiFillHeart } from 'react-icons/ai';
+import { FaSortDown } from "react-icons/fa";
+
 import axios from 'axios';
 
 const Pokedex = () => {
@@ -142,6 +144,12 @@ const Pokedex = () => {
           </div>
         </div>
       )}
+      <div className='divisao_seta_topo' onClick={() => window.scroll(0, document.body.scrollHeight)}>
+        <FaSortDown className='seta_topo'/>
+      </div>
+      <div className='divisao_seta_baixo' onClick={() => window.scroll(0, 0)}>
+        <FaSortDown className='seta_baixo'/>
+      </div>
       <section className={isSelected || modalFilter ? 'pokeapi pokeapiSelected' : 'pokeapi'}>
         <div className='logo' >
           <img className='logoImage' src={Logo} alt=''></img>
@@ -257,7 +265,6 @@ const Pokedex = () => {
               )
             }))
           }
-
         </div>
       </section>
       {modalFilter && (

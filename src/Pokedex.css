@@ -446,6 +446,62 @@ body {
     background-color: rgba(0,0,0,0.4);
 }
 
+.divisao_seta_topo {
+    position: fixed;
+    top: .5rem;
+    right: .5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: .25rem;
+    cursor: pointer;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    color: #ffffff;
+    background: #242629;
+}
+
+.divisao_seta_topo:hover {
+    transform: scale(1.025);
+}
+
+.divisao_seta_topo:active {
+    transform: scale(.975);
+}
+
+.seta_topo {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.divisao_seta_baixo {
+    position: fixed;
+    bottom: .5rem;
+    right: .5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: .25rem;
+    cursor: pointer;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    color: #ffffff;
+    background: #242629;
+}
+
+.divisao_seta_baixo:hover {
+    transform: scale(1.025);
+}
+
+.divisao_seta_baixo:active {
+    transform: scale(.975);
+}
+
+.seta_baixo {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+
 ::-webkit-scrollbar {
     width: 7.5px;
     background: #28282986;
