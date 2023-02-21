@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import ScaleLoader from "react-spinners/ScaleLoader";
 import './Pokedex.css';
 import Logo from '../src/assets/logo.png'
 import { AiFillHeart } from 'react-icons/ai';
@@ -22,10 +23,13 @@ const Pokedex = () => {
   const [filteredPokemons, setFilteredPokemons] = useState([])
   const [randomPokemon, setRandomPokemon] = useState()
   const [categories, setCategories] = useState(['grass', 'poison', 'fire', 'flying', 'water', 'bug', 'normal', 'electric', 'ground', 'fairy', 'fighting', 'psychic', 'rock', 'steel', 'ghost', 'ice', 'dragon'])
+  const [isLoading, setIsLoading] = useState(false);
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
     try {
+      setIsLoading(true)
+
       const response = await axios.get(url)
       const results = response.data.results
 
@@ -42,6 +46,9 @@ const Pokedex = () => {
     }
     catch (error) {
       console.log(error)
+    }
+    finally {
+      setIsLoading(false)
     }
   }
 
@@ -207,20 +214,26 @@ const Pokedex = () => {
                   const typeInfo = (pokemon.types).map(types => types.type.name)
                   return (
                     <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                      <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
-                      <div>
-                        <div className='division'>
-                          <h1 className='name'>{pokemon.name}</h1>
-                          <span className='order'>#{pokemon.order}</span>
-                        </div>
-                        <ul className='types'>
-                          {typeInfo.map(type => {
-                            return (
-                              <li className={`type ${type}`}>{type}</li>
-                            )
-                          })}
-                        </ul>
-                      </div>
+                      {isLoading ?
+                        <ScaleLoader color="#3761a8" />
+                        :
+                        <>
+                          <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                          <div>
+                            <div className='division'>
+                              <h1 className='name'>{pokemon.name}</h1>
+                              <span className='order'>#{pokemon.order}</span>
+                            </div>
+                            <ul className='types'>
+                              {typeInfo.map(type => {
+                                return (
+                                  <li className={`type ${type}`}>{type}</li>
+                                )
+                              })}
+                            </ul>
+                          </div>
+                        </>
+                      }
                     </div>
                   )
                 }))
