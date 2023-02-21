@@ -447,6 +447,7 @@ body {
 }
 
 .divisao_seta_topo {
+    z-index: 999;
     position: fixed;
     top: .5rem;
     right: .5rem;
@@ -475,6 +476,7 @@ body {
 }
 
 .divisao_seta_baixo {
+    z-index: 999;
     position: fixed;
     bottom: .5rem;
     right: .5rem;

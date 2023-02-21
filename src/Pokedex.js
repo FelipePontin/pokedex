@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 import './Pokedex.css';
 import Logo from '../src/assets/logo.png'
 import { AiFillHeart } from 'react-icons/ai';
@@ -31,9 +33,12 @@ const Pokedex = () => {
         const result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
         const pokemonData = result.data
 
-        setPokemons(pokemon => [...pokemon, pokemonData])
+        setPokemons(pokemon => {
+          pokemon = [...pokemon, pokemonData]
+          pokemon.sort((a, b) => a.id > b.id ? 1 : -1)
+          return pokemon
+        })
       })
-
     }
     catch (error) {
       console.log(error)
@@ -118,6 +123,7 @@ const Pokedex = () => {
   }
 
   useEffect(() => {
+    Aos.init({ duration: 500 })
     getAllPokemons()
   }, [])
 
@@ -145,10 +151,10 @@ const Pokedex = () => {
         </div>
       )}
       <div className='divisao_seta_topo' onClick={() => window.scroll(0, document.body.scrollHeight)}>
-        <FaSortDown className='seta_topo'/>
+        <FaSortDown className='seta_topo' />
       </div>
       <div className='divisao_seta_baixo' onClick={() => window.scroll(0, 0)}>
-        <FaSortDown className='seta_baixo'/>
+        <FaSortDown className='seta_baixo' />
       </div>
       <section className={isSelected || modalFilter ? 'pokeapi pokeapiSelected' : 'pokeapi'}>
         <div className='logo' >
@@ -177,7 +183,7 @@ const Pokedex = () => {
                 favorites.map(pokemon => {
                   const typeInfo = (pokemon.types).map(types => types.type.name)
                   return (
-                    <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                    <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
                       <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
                       <div>
                         <div className='division'>
@@ -200,7 +206,7 @@ const Pokedex = () => {
                 (pokemons.map(pokemon => {
                   const typeInfo = (pokemon.types).map(types => types.type.name)
                   return (
-                    <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                    <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
                       <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
                       <div>
                         <div className='division'>
@@ -222,7 +228,7 @@ const Pokedex = () => {
                 (filteredPokemons.map(pokemon => {
                   const typeInfo = (pokemon.types).map(types => types.type.name)
                   return (
-                    <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                    <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
                       <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
 
                       <div>
@@ -246,7 +252,7 @@ const Pokedex = () => {
             (categoriesPokemons.map((pokemon) => {
               const typeInfo = (pokemon.types).map(types => types.type.name)
               return (
-                <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
                   <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
                   <div>
                     <div className='division'>
