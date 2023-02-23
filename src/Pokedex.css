@@ -539,6 +539,11 @@ body {
 }
 
 @media screen and (max-width: 570px) {
+    .pokemon {
+        width: 22.5rem;
+        margin: 1rem 0;
+    }
+
     .input {
         width: 100%;
     }
