@@ -190,20 +190,22 @@ const Pokedex = () => {
                 favorites.map(pokemon => {
                   const typeInfo = (pokemon.types).map(types => types.type.name)
                   return (
-                    <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                      <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
-                      <div>
-                        <div className='division'>
-                          <h1 className='name'>{pokemon.name}</h1>
-                          <span className='order'>#{pokemon.order}</span>
+                    <div data-aos='fade-up'>
+                      <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                        <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                        <div>
+                          <div className='division'>
+                            <h1 className='name'>{pokemon.name}</h1>
+                            <span className='order'>#{pokemon.order}</span>
+                          </div>
+                          <ul className='types'>
+                            {typeInfo.map(type => {
+                              return (
+                                <li className={`type ${type}`}>{type}</li>
+                              )
+                            })}
+                          </ul>
                         </div>
-                        <ul className='types'>
-                          {typeInfo.map(type => {
-                            return (
-                              <li className={`type ${type}`}>{type}</li>
-                            )
-                          })}
-                        </ul>
                       </div>
                     </div>
                   )
@@ -213,27 +215,29 @@ const Pokedex = () => {
                 (pokemons.map(pokemon => {
                   const typeInfo = (pokemon.types).map(types => types.type.name)
                   return (
-                    <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                      {isLoading ?
-                        <ScaleLoader color="#3761a8" />
-                        :
-                        <>
-                          <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
-                          <div>
-                            <div className='division'>
-                              <h1 className='name'>{pokemon.name}</h1>
-                              <span className='order'>#{pokemon.order}</span>
+                    <div data-aos='fade-up'>
+                      <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                        {isLoading ?
+                          <ScaleLoader color="#3761a8" />
+                          :
+                          <>
+                            <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                            <div>
+                              <div className='division'>
+                                <h1 className='name'>{pokemon.name}</h1>
+                                <span className='order'>#{pokemon.order}</span>
+                              </div>
+                              <ul className='types'>
+                                {typeInfo.map(type => {
+                                  return (
+                                    <li className={`type ${type}`}>{type}</li>
+                                  )
+                                })}
+                              </ul>
                             </div>
-                            <ul className='types'>
-                              {typeInfo.map(type => {
-                                return (
-                                  <li className={`type ${type}`}>{type}</li>
-                                )
-                              })}
-                            </ul>
-                          </div>
-                        </>
-                      }
+                          </>
+                        }
+                      </div>
                     </div>
                   )
                 }))
@@ -241,21 +245,23 @@ const Pokedex = () => {
                 (filteredPokemons.map(pokemon => {
                   const typeInfo = (pokemon.types).map(types => types.type.name)
                   return (
-                    <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                      <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                    <div data-aos='fade-up'>
+                      <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                        <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
 
-                      <div>
-                        <div className='division'>
-                          <h1 className='name'>{pokemon.name}</h1>
-                          <span className='order'>#{pokemon.order}</span>
+                        <div>
+                          <div className='division'>
+                            <h1 className='name'>{pokemon.name}</h1>
+                            <span className='order'>#{pokemon.order}</span>
+                          </div>
+                          <ul className='types' key={pokemon}>
+                            {typeInfo.map(type => {
+                              return (
+                                <li className={`type ${type}`}>{type}</li>
+                              )
+                            })}
+                          </ul>
                         </div>
-                        <ul className='types' key={pokemon}>
-                          {typeInfo.map(type => {
-                            return (
-                              <li className={`type ${type}`}>{type}</li>
-                            )
-                          })}
-                        </ul>
                       </div>
                     </div>
                   )
@@ -265,20 +271,22 @@ const Pokedex = () => {
             (categoriesPokemons.map((pokemon) => {
               const typeInfo = (pokemon.types).map(types => types.type.name)
               return (
-                <div data-aos='fade-up' className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
-                  <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
-                  <div>
-                    <div className='division'>
-                      <h1 className='name'>{pokemon.name}</h1>
-                      <span className='order'>#{pokemon.order}</span>
+                <div data-aos='fade-up'>
+                  <div className='pokemon' onClick={() => getSelectedPokemon(pokemon)}>
+                    <img className='image' src={pokemon.sprites.other.home.front_default} alt=''></img>
+                    <div>
+                      <div className='division'>
+                        <h1 className='name'>{pokemon.name}</h1>
+                        <span className='order'>#{pokemon.order}</span>
+                      </div>
+                      <ul className='types'>
+                        {typeInfo.map(type => {
+                          return (
+                            <li className={`type ${type}`}>{type}</li>
+                          )
+                        })}
+                      </ul>
                     </div>
-                    <ul className='types'>
-                      {typeInfo.map(type => {
-                        return (
-                          <li className={`type ${type}`}>{type}</li>
-                        )
-                      })}
-                    </ul>
                   </div>
                 </div>
               )
