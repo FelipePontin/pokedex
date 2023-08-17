@@ -23,7 +23,7 @@ const Pokedex = () => {
   const [filteredPokemons, setFilteredPokemons] = useState([])
   const [randomPokemon, setRandomPokemon] = useState()
   const [categories, setCategories] = useState(['grass', 'poison', 'fire', 'flying', 'water', 'bug', 'normal', 'electric', 'ground', 'fairy', 'fighting', 'psychic', 'rock', 'steel', 'ghost', 'ice', 'dragon'])
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
 
   const getAllPokemons = async () => {
@@ -129,6 +129,20 @@ const Pokedex = () => {
     setCategoriesPokemons(pokemon)
   }
 
+  const direcionamentoLogo = () => {
+    setCategoriesPokemons([])
+    setFilteredPokemons([])
+    setCategoriesActive([])
+    setShowFavorites(false)
+  }
+
+  document.onkeydown = tecla => {
+    if(tecla.key === 'Escape') {
+      setModalFilter(false)
+      setIsSelected(false)
+    }
+  }
+
   useEffect(() => {
     Aos.init({ duration: 500 })
     getAllPokemons()
@@ -165,7 +179,7 @@ const Pokedex = () => {
       </div>
       <section className={isSelected || modalFilter ? 'pokeapi pokeapiSelected' : 'pokeapi'}>
         <div className='logo' >
-          <img className='logoImage' src={Logo} alt=''></img>
+          <img className='logoImage' src={Logo} onClick={() => direcionamentoLogo()} alt=''></img>
         </div>
         <div className='inputDivision'>
           <button className='btnFilter' onClick={() => openModalFilter()}>Filtrar</button>
@@ -293,6 +307,7 @@ const Pokedex = () => {
             }))
           }
         </div>
+        {showFavorites ? <></> : <footer className='rodape'>Feito com <AiFillHeart className='coracao_rodape'/> por <a href='https://felipepontin.github.io/Portfolio/' target='_blank' className='link_rodape'>Felipe Pontin</a></footer>}
       </section>
       {modalFilter && (
         <div className='modalFilter' onClick={() => setModalFilter(false)}>
