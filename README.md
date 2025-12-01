@@ -1,6 +1,6 @@
 # PokeAPI
 
-Projeto desenvolvido em ReactJS consumindo a API do PokeAPI.
+Projeto desenvolvido em React consumindo a API do PokeAPI.
 
 
 > São listados os 151 Pokemons da primeira geração.
